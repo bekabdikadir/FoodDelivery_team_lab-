@@ -1,0 +1,26 @@
+@model UserRolesViewModel
+@{
+    ViewData["Title"] = "Роли пользователя";
+}
+
+<h1 class="h3 mb-4">Роли пользователя @Model.Email</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Roles" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Email" />
+            @for (var i = 0; i < Model.Roles.Count; i++)
+            {
+                <div class="form-check mb-2">
+                    <input type="hidden" asp-for="Roles[i].Name" />
+                    <input type="checkbox" asp-for="Roles[i].Selected" class="form-check-input" />
+                    <label asp-for="Roles[i].Selected" class="form-check-label">@Model.Roles[i].Name</label>
+                </div>
+            }
+            <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+            <a asp-action="Index" class="btn btn-outline-secondary mt-3">Отмена</a>
+        </form>
+    </div>
+</div>

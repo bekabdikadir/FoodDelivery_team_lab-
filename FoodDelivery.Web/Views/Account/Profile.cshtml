@@ -1,0 +1,19 @@
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+<h1 class="h3 mb-4">Профиль</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <p><strong>Email:</strong> @User.Identity?.Name</p>
+        <p class="mb-0">
+            <strong>Роли:</strong>
+            @foreach (var role in User.FindAll(ClaimTypes.Role))
+            {
+                <span class="badge bg-secondary">@role.Value</span>
+            }
+        </p>
+    </div>
+</div>

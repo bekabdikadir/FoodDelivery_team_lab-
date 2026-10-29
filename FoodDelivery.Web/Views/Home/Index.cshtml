@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
+    <h1 class="display-6">Приложение для заказа доставки еды</h1>
+    <p class="lead">Эта страница доступна всем посетителям.</p>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a asp-controller="Account" asp-action="Profile" class="btn btn-primary">Перейти в профиль</a>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Войти</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-primary">Регистрация</a>
+    }
+</div>
