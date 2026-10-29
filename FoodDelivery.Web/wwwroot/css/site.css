@@ -1,0 +1,39 @@
+html {
+    font-size: 15px;
+}
+
+body {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.restaurant-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.placeholder-img {
+    height: 200px;
+    width: 100%;
+    background-color: #dee2e6;
+}
+
+.restaurant-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.details-img {
+    max-height: 320px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.cart-sticky {
+    top: 1rem;
+}
