@@ -1,14 +1,15 @@
 using System.Diagnostics;
+using FoodDelivery.BLL.Interfaces;
 using FoodDelivery.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodDelivery.Web.Controllers;
 
-public class HomeController : Controller
+public class HomeController(IRestaurantService restaurantService) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        return View(await restaurantService.GetAllAsync());
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

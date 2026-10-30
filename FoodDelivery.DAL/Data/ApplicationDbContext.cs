@@ -26,6 +26,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         {
             entity.Property(r => r.Name).IsRequired().HasMaxLength(200);
             entity.Property(r => r.Description).HasMaxLength(2000);
+            entity.Property(r => r.ImageUrl).HasMaxLength(500);
         });
 
         builder.Entity<Dish>(entity =>

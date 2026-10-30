@@ -1,13 +1,26 @@
 @{
-    ViewData["Title"] = "Администрирование";
+    ViewData["Title"] = "Кабинет Администрации";
 }
 
-<h1 class="mb-4">Администрирование</h1>
+<h1 class="mb-4">Кабинет Администрации</h1>
 
-<div class="card shadow-sm" style="max-width: 420px;">
-    <div class="card-body">
-        <h5 class="card-title">Пользователи</h5>
-        <p class="card-text">Просмотр, добавление, удаление пользователей и управление ролями.</p>
-        <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="btn btn-primary">Перейти</a>
+<div class="row g-3">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Пользователи</h5>
+                <p class="card-text">Просмотр, добавление, удаление пользователей и управление ролями.</p>
+                <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Заведения</h5>
+                <p class="card-text">Добавление и удаление заведений, управление их блюдами.</p>
+                <a asp-area="Admin" asp-controller="Restaurants" asp-action="Index" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
     </div>
 </div>

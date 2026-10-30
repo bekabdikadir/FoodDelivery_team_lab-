@@ -1,5 +1,6 @@
 using FoodDelivery.BLL;
 using Microsoft.AspNetCore.Identity;
+using FoodDelivery.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddBusinessLogic(connectionString);
+builder.Services.AddScoped<IImageStorage, ImageStorage>();
 
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {

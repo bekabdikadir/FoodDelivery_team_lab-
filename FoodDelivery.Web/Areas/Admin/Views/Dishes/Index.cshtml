@@ -1,0 +1,54 @@
+﻿@model RestaurantDetailsDto
+@{
+    ViewData["Title"] = "Блюда — " + Model.Name;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Restaurants" asp-action="Index">Заведения</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Блюда: @Model.Name</h1>
+    <a asp-action="Create" asp-route-restaurantId="@Model.Id" class="btn btn-primary">Добавить блюдо</a>
+</div>
+
+@if (!Model.Dishes.Any())
+{
+    <div class="alert alert-info">В этом заведении пока нет блюд</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle bg-white shadow-sm">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Цена</th>
+                    <th class="text-end">Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dish in Model.Dishes)
+                {
+                    <tr>
+                        <td class="fw-semibold">@dish.Name</td>
+                        <td class="text-muted small">@dish.Description</td>
+                        <td class="text-nowrap">@dish.Price.ToString("0.00")</td>
+                        <td class="text-end">
+                            <form asp-action="Delete" method="post" class="d-inline"
+                                  onsubmit="return confirm('Удалить блюдо «@dish.Name»?');">
+                                <input type="hidden" name="id" value="@dish.Id" />
+                                <input type="hidden" name="restaurantId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

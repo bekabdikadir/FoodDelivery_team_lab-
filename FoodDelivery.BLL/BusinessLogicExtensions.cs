@@ -31,6 +31,8 @@ public static class BusinessLogicExtensions
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IRestaurantService, RestaurantService>();
+        services.AddScoped<IDishService, DishService>();
 
         return services;
     }

@@ -1,15 +1,16 @@
 using FoodDelivery.BLL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FoodDelivery.BLL.Interfaces;
 
 namespace FoodDelivery.Web.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = RoleNames.Admin)]
-public class HomeController : Controller
+public class HomeController(IRestaurantService restaurantService) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+      return View(await restaurantService.GetAllAsync());
     }
 }

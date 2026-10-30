@@ -1,17 +1,36 @@
+@model List<RestaurantDto>
 @{
-    ViewData["Title"] = "Главная";
+    ViewData["Title"] = "Все заведения";
 }
 
-<div class="p-5 mb-4 bg-white rounded-3 shadow-sm">
-    <h1 class="display-6">Приложение для заказа доставки еды</h1>
-    <p class="lead">Эта страница доступна всем посетителям.</p>
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        <a asp-controller="Account" asp-action="Profile" class="btn btn-primary">Перейти в профиль</a>
-    }
-    else
-    {
-        <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Войти</a>
-        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-primary">Регистрация</a>
-    }
-</div>
+<h1 class="h3 mb-4">Все заведения</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Заведений пока нет.</div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var restaurant in Model)
+        {
+            <div class="col-sm-6 col-lg-4">
+                <a asp-controller="Restaurants" asp-action="Details" asp-route-id="@restaurant.Id"
+                   class="card h-100 shadow-sm restaurant-card text-decoration-none text-body">
+                    @if (!string.IsNullOrEmpty(restaurant.ImageUrl))
+                    {
+                        <img src="@restaurant.ImageUrl" alt="@restaurant.Name" class="card-img-top restaurant-img" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top placeholder-img"></div>
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@restaurant.Name</h5>
+                        <p class="card-text text-muted">@restaurant.Description</p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}
