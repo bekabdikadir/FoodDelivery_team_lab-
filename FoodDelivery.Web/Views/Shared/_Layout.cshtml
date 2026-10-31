@@ -34,6 +34,11 @@
                     }
                 </ul>
                 <ul class="navbar-nav align-items-lg-center">
+                    <li class="nav-item me-lg-2">
+                        <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar" aria-controls="cartSidebar">
+                            Корзина <span class="badge text-bg-light" id="cart-item-count">0</span>
+                        </button>
+                    </li>
                     @if (User.Identity?.IsAuthenticated == true)
                     {
                         <li class="nav-item">
@@ -78,7 +83,23 @@
         @RenderBody()
     </main>
 </div>
+<form id="cart-antiforgery-form" class="d-none">@Html.AntiForgeryToken()</form>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartSidebar" aria-labelledby="cartSidebarLabel"
+     data-summary-url="@Url.Action("Summary", "Cart")"
+     data-add-url="@Url.Action("Add", "Cart")"
+     data-quantity-url="@Url.Action("SetQuantity", "Cart")"
+     data-remove-url="@Url.Action("Remove", "Cart")">
+    <div class="offcanvas-header">
+        <h2 class="offcanvas-title h5" id="cartSidebarLabel">Корзина заказа</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+    </div>
+    <div class="offcanvas-body" id="cart-summary-container" aria-live="polite">
+        <p class="text-secondary">Загружаем корзину…</p>
+    </div>
+</div>
+<div id="cart-toast" class="cart-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/cart.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

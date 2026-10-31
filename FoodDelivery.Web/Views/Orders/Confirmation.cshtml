@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Заказ оформлен";
+    var emailSent = ViewData["EmailSent"] is true;
+}
+
+<div class="card shadow-sm mx-auto my-5" style="max-width: 42rem">
+    <div class="card-body p-4 p-md-5 text-center">
+        <div class="display-5 text-success mb-3" aria-hidden="true">✓</div>
+        <h1 class="h3">Заказ №@ViewData["OrderId"] оформлен</h1>
+        @if (emailSent)
+        {
+            <p class="text-secondary">Подтверждение с составом заказа отправлено на указанную электронную почту.</p>
+        }
+        else
+        {
+            <p class="text-secondary">Заказ сохранён. Письмо не отправлено: проверьте настройки SMTP.</p>
+        }
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-2">Вернуться к заведениям</a>
+    </div>
+</div>

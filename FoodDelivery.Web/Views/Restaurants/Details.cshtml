@@ -38,6 +38,10 @@ else
                             <p class="card-text text-muted small mb-0">@dish.Description</p>
                         </div>
                         <div class="fw-bold text-nowrap">@dish.Price.ToString("0.00")</div>
+                        <button type="button" class="btn btn-sm btn-primary align-self-end"
+                                data-cart-add data-restaurant-id="@Model.Id" data-dish-id="@dish.Id">
+                            Добавить в корзину
+                        </button>
                     </div>
                 </div>
             </div>
