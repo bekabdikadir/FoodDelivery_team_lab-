@@ -37,3 +37,33 @@ body {
 .cart-sticky {
     top: 1rem;
 }
+
+.cart-line {
+    flex-wrap: wrap;
+}
+
+.cart-toast {
+    position: fixed;
+    z-index: 1080;
+    top: 1rem;
+    left: 50%;
+    max-width: min(90vw, 32rem);
+    padding: .75rem 1.1rem;
+    color: #fff;
+    background: #198754;
+    border-radius: .6rem;
+    box-shadow: 0 .5rem 1rem rgb(0 0 0 / 20%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -1rem);
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+.cart-toast.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.cart-toast.is-error {
+    background: #b02a37;
+}

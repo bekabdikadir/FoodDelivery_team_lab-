@@ -9,6 +9,16 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddBusinessLogic(connectionString);
 builder.Services.AddScoped<IImageStorage, ImageStorage>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddAntiforgery(options => options.HeaderName = "RequestVerificationToken");
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromHours(12);
+});
+builder.Services.AddScoped<ISessionCartStore, SessionCartStore>();
 
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {
@@ -41,6 +51,7 @@ await DatabaseInitializer.InitializeAsync(app.Services);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

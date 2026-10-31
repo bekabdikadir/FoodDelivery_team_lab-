@@ -1,0 +1,50 @@
+@model IReadOnlyList<RestaurantCartDto>
+
+<div data-total-quantity="@Model.Sum(cart => cart.ItemCount)">
+@if (Model.Count == 0)
+{
+    <p class="text-secondary mb-0">Корзина пока пуста.</p>
+}
+</div>
+else
+{
+    foreach (var cart in Model)
+    {
+        <section class="cart-restaurant border-bottom pb-3 mb-3" data-cart-restaurant="@cart.RestaurantId">
+            <h3 class="h6">@cart.RestaurantName</h3>
+            @foreach (var item in cart.Items)
+            {
+                <div class="d-flex justify-content-between align-items-start gap-2 py-2 border-top cart-line">
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold">@item.Name</div>
+                        <div class="small text-secondary">@item.UnitPrice.ToString("0.00") × @item.Quantity = @item.LineTotal.ToString("0.00") сом</div>
+                    </div>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Количество @item.Name">
+                        @if (item.Quantity <= 1)
+                        {
+                            <button type="button" class="btn btn-outline-secondary" disabled aria-label="Минимальное количество">−</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-outline-secondary" data-cart-quantity="-1" data-restaurant-id="@cart.RestaurantId" data-dish-id="@item.DishId" data-quantity="@item.Quantity" aria-label="Уменьшить количество">−</button>
+                        }
+                        <span class="btn btn-outline-secondary disabled">@item.Quantity</span>
+                        @if (item.Quantity >= 99)
+                        {
+                            <button type="button" class="btn btn-outline-secondary" disabled aria-label="Максимальное количество">+</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-outline-secondary" data-cart-quantity="1" data-restaurant-id="@cart.RestaurantId" data-dish-id="@item.DishId" data-quantity="@item.Quantity" aria-label="Увеличить количество">+</button>
+                        }
+                    </div>
+                    <button type="button" class="btn btn-sm btn-link text-danger p-0" data-cart-remove data-restaurant-id="@cart.RestaurantId" data-dish-id="@item.DishId" aria-label="Удалить @item.Name">Удалить</button>
+                </div>
+            }
+            <div class="d-flex justify-content-between fw-bold pt-2">
+                <span>Итого</span><span>@cart.Total.ToString("0.00") сом</span>
+            </div>
+            <a asp-controller="Orders" asp-action="Checkout" asp-route-restaurantId="@cart.RestaurantId" class="btn btn-primary w-100 mt-3">Оформить заказ</a>
+        </section>
+    }
+}
