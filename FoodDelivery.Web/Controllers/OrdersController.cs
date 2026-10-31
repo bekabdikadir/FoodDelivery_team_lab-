@@ -62,7 +62,7 @@ public sealed class OrdersController(
             User.FindFirstValue(ClaimTypes.NameIdentifier),
             cancellationToken);
 
-        if (!result.Succeeded || result.Value is not int orderId)
+        if (!result.Succeeded)
         {
             foreach (var error in result.Errors)
             {
@@ -72,6 +72,7 @@ public sealed class OrdersController(
             return View(model);
         }
 
+        var orderId = result.Value;
         cartStore.RemoveRestaurant(model.RestaurantId);
         var order = await orderService.GetByIdAsync(orderId, cancellationToken);
         var emailSent = order is not null && await emailSender.SendOrderConfirmationAsync(order, cancellationToken);
