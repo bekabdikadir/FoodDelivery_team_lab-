@@ -19,6 +19,8 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromHours(12);
 });
 builder.Services.AddScoped<ISessionCartStore, SessionCartStore>();
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("Smtp"));
+builder.Services.AddScoped<IOrderEmailSender, SmtpOrderEmailSender>();
 
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {
